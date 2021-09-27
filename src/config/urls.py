@@ -14,8 +14,28 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from posts.api import views as post_views
+from rest_framework.response import Response
+from rest_framework.reverse import reverse
+
+from rest_framework.generics import GenericAPIView
+
+
+class ApiRoot(GenericAPIView):
+    name = 'api-root'
+
+    def get(self, request, *args, **kwargs):
+        return Response({
+            'posts': reverse(post_views.PostListAPIView.name, request=request),
+        })
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', ApiRoot.as_view(), name=ApiRoot.name),
+    path('posts/', include('posts.api.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+
 ]
