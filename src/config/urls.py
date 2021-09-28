@@ -54,11 +54,11 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', ApiRoot.as_view(), name=ApiRoot.name),
-    path('api/v1/posts/', include('posts.api.urls')),
-    path('api/v1/api-auth/', include('rest_framework.urls')),
-    path('api/v1/accounts/', include('accounts.api.urls')),
-    path('api/v1/dj-rest-auth/', include('dj_rest_auth.urls')),
-    path('api/v1/dj-rest-auth/registration/',
+    path('posts/', include('posts.api.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    path('accounts/', include('accounts.api.urls')),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
+    path('dj-rest-auth/registration/',
          include('dj_rest_auth.registration.urls')),
     path('swagger/', schema_view.with_ui(
         'swagger', cache_timeout=0), name='schema-swagger-ui'),
