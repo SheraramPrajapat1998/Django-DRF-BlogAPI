@@ -17,7 +17,8 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
-from posts.api import views as post_views
+from posts.api import views as posts_views
+from accounts.api import views as accounts_views
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
@@ -29,7 +30,8 @@ class ApiRoot(GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         return Response({
-            'posts': reverse(post_views.PostListAPIView.name, request=request),
+            'posts': reverse(posts_views.PostListAPIView.name, request=request),
+            'users': reverse(accounts_views.UserListAPIView.name, request=request),
         })
 
 
@@ -38,7 +40,7 @@ urlpatterns = [
     path('', ApiRoot.as_view(), name=ApiRoot.name),
     path('posts/', include('posts.api.urls')),
     path('api-auth/', include('rest_framework.urls')),
-
+    path('accounts/', include('accounts.api.urls')),
 ]
 
 if settings.DEBUG:
