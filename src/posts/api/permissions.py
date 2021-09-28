@@ -16,7 +16,7 @@ class IsAuthorOrReadOnly(BasePermission):
 
 class IsUserOrSuperUserOrReadOnly(BasePermission):
     """
-    Checks if current user is `user` of the object or superuser or not
+    Checks if current user is `user` of the object or `superuser` or not
     and gives read or write permission based on it.
     """
     message = "You are not the user of this object."
